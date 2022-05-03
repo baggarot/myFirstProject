@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: classpath:db/migration/chat-users.xml
+  - include:
+      file: classpath:db/migration/chat-room.xml

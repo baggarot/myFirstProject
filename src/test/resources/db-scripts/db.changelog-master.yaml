@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: classpath:db-scripts/users-test.xml
+  - include:
+      file: classpath:db-scripts/room-test.xml
