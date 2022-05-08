@@ -1,7 +1,5 @@
 package chatService.configuration;
 
-import chatService.interceptor.HttpHandshakeInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -12,12 +10,9 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class WebConfig implements WebSocketMessageBrokerConfigurer {
 
-    @Autowired
-    private HttpHandshakeInterceptor handshakeInterceptor;
-
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws").withSockJS().setInterceptors(handshakeInterceptor);
+        registry.addEndpoint("/ws").withSockJS();
     }
 
     @Override
