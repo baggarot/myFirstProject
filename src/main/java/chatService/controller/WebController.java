@@ -1,8 +1,7 @@
 package chatService.controller;
 
 import chatService.model.ChatMessage;
-import chatService.model.ChatRoom;
-import chatService.service.ChatRoomService;
+import chatService.service.ChatMessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -16,12 +15,12 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class WebController {
 
-    private final ChatRoomService roomService;
+    private final ChatMessageService messageService;
 
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-        roomService.saveMessage(new ChatRoom(chatMessage.getUsername(), chatMessage.getMessage()));
+        messageService.saveMessage(new ChatMessage(chatMessage.getUsername(), chatMessage.getMessage()));
         return chatMessage;
     }
 

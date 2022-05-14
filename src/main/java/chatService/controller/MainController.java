@@ -1,6 +1,6 @@
 package chatService.controller;
 
-import chatService.service.ChatRoomService;
+import chatService.service.ChatMessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 public class MainController {
 
-    private final ChatRoomService roomService;
+    private final ChatMessageService messageService;
 
     @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("messages", roomService.allMessage());
+        model.addAttribute("messages", messageService.allMessage());
         return "chat";
     }
 
