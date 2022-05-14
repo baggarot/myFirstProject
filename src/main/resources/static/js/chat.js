@@ -7,7 +7,7 @@ var username = null;
 
 function connect() {
     username = document.querySelector('#username').innerText.trim();
-    var socket = new SockJS('/ws');
+    var socket = new SockJS('/webChat');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, onConnected, onError);
 }
