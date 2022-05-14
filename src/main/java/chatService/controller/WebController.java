@@ -21,14 +21,14 @@ public class WebController {
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-        roomService.saveMessage(new ChatRoom(chatMessage.getSender(), chatMessage.getContent()));
+        roomService.saveMessage(new ChatRoom(chatMessage.getUsername(), chatMessage.getMessage()));
         return chatMessage;
     }
 
     @MessageMapping("/chat.addUser")
     @SendTo("/topic/public")
     public ChatMessage addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-        Objects.requireNonNull(headerAccessor.getSessionAttributes()).put("username", chatMessage.getSender());
+        Objects.requireNonNull(headerAccessor.getSessionAttributes()).put("username", chatMessage.getUsername());
         return chatMessage;
     }
 }

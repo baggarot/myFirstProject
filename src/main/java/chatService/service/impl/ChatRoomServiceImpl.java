@@ -21,8 +21,7 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     }
 
     @Override
-    public boolean saveMessage(ChatRoom room) {
+    public void saveMessage(ChatRoom room) {
         roomRepository.save(room);
-        return true;
     }
 }

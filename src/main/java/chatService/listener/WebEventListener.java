@@ -34,7 +34,7 @@ public class WebEventListener {
             logger.info("User Disconnected : " + username);
             ChatMessage chatMessage = new ChatMessage();
             chatMessage.setType(MessageType.LEAVE);
-            chatMessage.setSender(username);
+            chatMessage.setUsername(username);
             messageTemplate.convertAndSend("/topic/public", chatMessage);
         }
     }

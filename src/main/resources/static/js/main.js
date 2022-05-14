@@ -18,7 +18,7 @@ function onConnected(options) {
     stompClient.subscribe('/topic/public', onMessageReceived);
     stompClient.send("/app/chat.addUser",
         {},
-        JSON.stringify({sender: username, type: 'JOIN'})
+        JSON.stringify({username: username, type: 'JOIN'})
     )
     connectingElement.classList.add('hidden');
 }
@@ -34,8 +34,8 @@ function sendMessage(event) {
     var messageContent = messageInput.value.trim();
     if(messageContent && stompClient) {
         var chatMessage = {
-            sender: username,
-            content: messageInput.value,
+            username: username,
+            message: messageInput.value,
             type: 'CHAT'
         };
         stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
@@ -50,20 +50,20 @@ function onMessageReceived(payload) {
     var messageElement = document.createElement('li');
     if(message.type === 'JOIN') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' joined!';
+        message.message = message.username + ' joined!';
     } else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' left!';
+        message.message = message.username + ' left!';
     } else {
         messageElement.classList.add('chat-message');
         var usernameElement = document.createElement('strong');
         usernameElement.classList.add('nickname');
-        var usernameText = document.createTextNode(message.sender);
+        var usernameText = document.createTextNode(message.username);
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
     }
     var textElement = document.createElement('span');
-    var messageText = document.createTextNode(message.content);
+    var messageText = document.createTextNode(message.message);
     textElement.appendChild(messageText);
     messageElement.appendChild(textElement);
     messageArea.appendChild(messageElement);
